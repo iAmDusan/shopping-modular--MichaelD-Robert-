@@ -14,4 +14,4 @@ const store = (function () {
   };
 
 
-}());
+})();
