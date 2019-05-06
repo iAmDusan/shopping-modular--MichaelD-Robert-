@@ -1,6 +1,8 @@
 'use strict';
 
 const Item = (function () {
+
+
   function validateName(name) {
     if (!name) {
       throw new TypeError('Name does not exist');
@@ -16,7 +18,8 @@ const Item = (function () {
   }
   
   return {
-    validateName: validateName(name),
-    create: create(name)
+    validateName: validateName,
+    create: create,
   };
-}); 
+
+})(); 
