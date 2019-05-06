@@ -160,4 +160,4 @@ const shoppingList = (function () {
     render: render,
     bindEventListeners: bindEventListeners,
   };
-}());
+} () );
