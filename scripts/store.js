@@ -1,12 +1,7 @@
 /* global store, cuid */
 'use strict';
 
-
-
 const store = (function () {
-  
-  const foo = 'bar';
-
   return {
     items: [
       { id: cuid(), name: 'apples', checked: false },
@@ -16,7 +11,6 @@ const store = (function () {
     ],
     hideCheckedItems: false,
     searchTerm: ''
-
   };
 
 
