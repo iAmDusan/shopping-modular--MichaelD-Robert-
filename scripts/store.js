@@ -5,7 +5,7 @@ const store = (function () {
   function findById(id) {
     return store.items.find(item => item.id === id); 
   }
-  
+
   function addItem(name) {
     try {
       Item.validateName(name);
@@ -13,13 +13,13 @@ const store = (function () {
     } catch(error) {
       console.log(error.message);
     }
-
   }
+
   function findAndToggleChecked(id) {
     
-    !(this.findById(id).checked);
-
+    this.findById(id).checked = !this.findById(id).checked;
   }
+
   function findAndUpdateName(id, newname) {
     try {
       Item.validateName(newname);
@@ -30,11 +30,21 @@ const store = (function () {
     }
 
   }
-  function findAndDelete(id) {
 
+  const findAndDelete = function(id) {
+    const deletedItems = this.items.filter(item => item.id !== id);
+    this.items = deletedItems;
   }
 
-  
+  function toggleCheckedFilter () {
+    this.hideCheckedItems = !this.hideCheckedItems;
+  }
+
+  function setSearchTerm (val) {
+    this.searchTerm = val;
+  }
+
+
   return {
     items: [
       { id: cuid(), name: 'apples', checked: false },
@@ -49,6 +59,8 @@ const store = (function () {
     findAndToggleChecked,
     findAndUpdateName,
     findAndDelete,
+    toggleCheckedFilter,
+    setSearchTerm,
   };
 })();
 
