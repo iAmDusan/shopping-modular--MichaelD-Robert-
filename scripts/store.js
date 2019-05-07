@@ -37,6 +37,10 @@ const store = (function () {
   }
 
   function toggleCheckedFilter () {
+
+    // you have to set the value to the opposite value
+    // cannot just put !(this.hideCheckedItems)
+    
     this.hideCheckedItems = !this.hideCheckedItems;
   }
 
