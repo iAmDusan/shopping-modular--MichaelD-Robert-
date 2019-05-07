@@ -20,6 +20,7 @@ const store = (function () {
     this.findById(id).checked = !(this.findById(id).checked);
 
   }
+
   function findAndUpdateName(id, newname) {
     try {
       Item.validateName(newname);
@@ -30,6 +31,7 @@ const store = (function () {
     }
 
   }
+
   function findAndDelete(id) {
 
     this.items = this.items.filter( function(item) {
@@ -44,6 +46,14 @@ const store = (function () {
       return (item.id !== id);
     }); 
     
+  }
+
+  function toggleCheckedFilter() {
+    this.hideCheckedItems = !(this.hideCheckedItems);
+  }
+    
+  function setSearchTerm(name) {
+    this.searchTerm = name;
   }
 
   
@@ -61,6 +71,8 @@ const store = (function () {
     findAndToggleChecked,
     findAndUpdateName,
     findAndDelete,
+    toggleCheckedFilter,
+    setSearchTerm,
   };
 })();
 

@@ -1,4 +1,4 @@
-/* global store, global Item */
+/* global store, global Item, global $ */
 'use strict';
 
 // eslint-disable-next-line no-unused-vars
@@ -77,11 +77,6 @@ const shoppingList = (function () {
     });
   }
 
-  function toggleCheckedForListItem(id) {
-    const foundItem = store.items.find(item => item.id === id);
-    foundItem.checked = !foundItem.checked;
-  }
-
 
   function getItemIdFromElement(item) {
     return $(item)
@@ -92,29 +87,10 @@ const shoppingList = (function () {
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      toggleCheckedForListItem(id);
+      store.findAndToggleChecked(id);
       render();
     });
   }
-
-  function deleteListItem(id) {
-    const index = store.items.findIndex(item => item.id === id);
-    store.items.splice(index, 1);
-  }
-
-  function editListItemName(id, itemName) {
-    const item = store.items.find(item => item.id === id);
-    item.name = itemName;
-  }
-
-  function toggleCheckedItemsFilter() {
-    store.hideCheckedItems = !store.hideCheckedItems;
-  }
-
-  function setSearchTerm(val) {
-    store.searchTerm = val;
-  }
-
 
   function handleDeleteItemClicked() {
     // like in `handleItemCheckClicked`, we use event delegation
@@ -122,7 +98,7 @@ const shoppingList = (function () {
       // get the index of the item in store.items
       const id = getItemIdFromElement(event.currentTarget);
       // delete the item
-      deleteListItem(id);
+      store.findAndDelete(id);
       // render the updated shopping list
       render();
     });
@@ -133,14 +109,14 @@ const shoppingList = (function () {
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      editListItemName(id, itemName);
+      store.findAndUpdateName(id, itemName);
       render();
     });
   }
 
   function handleToggleFilterClick() {
     $('.js-filter-checked').click(() => {
-      toggleCheckedItemsFilter();
+      store.toggleCheckedFilter();
       render();
     });
   }
@@ -148,7 +124,7 @@ const shoppingList = (function () {
   function handleShoppingListSearch() {
     $('.js-shopping-list-search-entry').on('keyup', event => {
       const val = $(event.currentTarget).val();
-      setSearchTerm(val);
+      store.setSearchTerm(val);
       render();
     });
   }
