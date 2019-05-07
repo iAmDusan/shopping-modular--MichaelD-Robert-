@@ -17,7 +17,7 @@ const store = (function () {
   }
   function findAndToggleChecked(id) {
     
-    !(this.findById(id).checked);
+    this.findById(id).checked = !(this.findById(id).checked);
 
   }
   function findAndUpdateName(id, newname) {
@@ -32,6 +32,18 @@ const store = (function () {
   }
   function findAndDelete(id) {
 
+    this.items = this.items.filter( function(item) {
+
+      // search the individual element for the truth condition for 
+      // when the ID parameter passed in is equal to id found on this element
+
+      // IF id doesnt match then discard
+      // return false
+
+      // if it does return true
+      return (item.id !== id);
+    }); 
+    
   }
 
   
